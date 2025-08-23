@@ -29,23 +29,22 @@ const NewIssuePage = () => {
   });
   const router = useRouter();
 
-  return (
-    <form
-      className="max-w-xl space-y-3"
-      onSubmit={handleSubmit(async (data) => {
-        try {
-          setIsSubmitting(true);
-          const response = await axios.post('/api/issues', data);
+  const onSubmit = handleSubmit(async (data) => {
+    try {
+      setIsSubmitting(true);
+      const response = await axios.post('/api/issues', data);
 
-          if (response.status === 201) {
-            router.push('/issues');
-          }
-        } catch (error) {
-          console.log(error);
-          setIsSubmitting(false);
-        }
-      })}
-    >
+      if (response.status === 201) {
+        router.push('/issues');
+      }
+    } catch (error) {
+      console.log(error);
+      setIsSubmitting(false);
+    }
+  });
+
+  return (
+    <form className="max-w-xl space-y-3" onSubmit={onSubmit}>
       <TextField.Root>
         <TextField.Input placeholder="Title" {...register('title')} />
       </TextField.Root>
