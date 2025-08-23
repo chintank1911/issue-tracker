@@ -21,10 +21,14 @@ const NewIssuePage = () => {
     <form
       className="max-w-xl space-y-3"
       onSubmit={handleSubmit(async (data) => {
-        const response = await axios.post('/api/issues', data);
+        try {
+          const response = await axios.post('/api/issues', data);
 
-        if (response.status === 201) {
-          router.push('/issues');
+          if (response.status === 201) {
+            router.push('/issues');
+          }
+        } catch (error) {
+          console.log(error);
         }
       })}
     >
