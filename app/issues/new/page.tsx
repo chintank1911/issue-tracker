@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import axios from 'axios';
@@ -12,10 +12,13 @@ import 'easymde/dist/easymde.min.css';
 
 import { createIssueSchema } from '../../validationSchemas';
 import ErrorMessage from '../../components/ErrorMessage';
+import Spinner from '../../components/Spinner';
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     register,
     control,
@@ -31,6 +34,7 @@ const NewIssuePage = () => {
       className="max-w-xl space-y-3"
       onSubmit={handleSubmit(async (data) => {
         try {
+          setIsSubmitting(true);
           const response = await axios.post('/api/issues', data);
 
           if (response.status === 201) {
@@ -38,6 +42,7 @@ const NewIssuePage = () => {
           }
         } catch (error) {
           console.log(error);
+          setIsSubmitting(false);
         }
       })}
     >
@@ -53,7 +58,7 @@ const NewIssuePage = () => {
         )}
       />
       <ErrorMessage>{errors.description?.message}</ErrorMessage>
-      <Button>Submit New Issue</Button>
+      <Button>Submit New Issue {isSubmitting && <Spinner />}</Button>
     </form>
   );
 };
