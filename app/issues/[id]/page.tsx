@@ -3,6 +3,10 @@ import { notFound } from 'next/navigation';
 import prisma from '@/prisma/client';
 import moment from 'moment';
 
+import { Card, Flex, Heading, Text } from '@radix-ui/themes';
+
+import IssueStatusBadge from '../../components/IssueStatusBadge';
+
 interface Props {
   params: { id: string };
 }
@@ -22,11 +26,15 @@ const IssueDetailPage = async (props: Props) => {
   }
 
   return (
-    <div>
-      <p>{issue.title}</p>
-      <p>{issue.description}</p>
-      <p>{issue.status}</p>
-      <p>{moment(issue.created_at).format('YYYY-MM-DD HH:mm:ss')}</p>
+    <div className="space-y-3">
+      <Heading>{issue.title}</Heading>
+      <Flex gap="3">
+        <IssueStatusBadge status={issue.status} />
+        <Text>{moment(issue.created_at).format('YYYY-MM-DD HH:mm:ss')}</Text>
+      </Flex>
+      <Card>
+        <p>{issue.description}</p>
+      </Card>
     </div>
   );
 };
