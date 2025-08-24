@@ -2,6 +2,7 @@ import React from 'react';
 import { notFound } from 'next/navigation';
 import prisma from '@/prisma/client';
 import moment from 'moment';
+import ReactMarkdown from 'react-markdown';
 
 import { Card, Flex, Heading, Text } from '@radix-ui/themes';
 
@@ -32,8 +33,8 @@ const IssueDetailPage = async (props: Props) => {
         <IssueStatusBadge status={issue.status} />
         <Text>{moment(issue.created_at).format('YYYY-MM-DD HH:mm:ss')}</Text>
       </Flex>
-      <Card>
-        <p>{issue.description}</p>
+      <Card className="prose">
+        <ReactMarkdown>{issue.description}</ReactMarkdown>
       </Card>
     </div>
   );
