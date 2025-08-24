@@ -11,14 +11,14 @@ import { Issue } from '@prisma/client';
 import { Button, TextField } from '@radix-ui/themes';
 import 'easymde/dist/easymde.min.css';
 
-import { createIssueSchema } from '../../validationSchemas';
+import { issueSchema } from '../../validationSchemas';
 import { ErrorMessage, Spinner } from '@/app/components';
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {
   ssr: false,
 });
 
-type IssueFormData = z.infer<typeof createIssueSchema>;
+type IssueFormData = z.infer<typeof issueSchema>;
 
 interface Props {
   issue?: Issue;
@@ -35,7 +35,7 @@ const IssueForm = (props: Props) => {
     handleSubmit,
     formState: { errors },
   } = useForm<IssueFormData>({
-    resolver: zodResolver(createIssueSchema),
+    resolver: zodResolver(issueSchema),
   });
   const router = useRouter();
 
