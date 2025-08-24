@@ -42,11 +42,14 @@ const IssueForm = (props: Props) => {
   const onSubmit = handleSubmit(async (data) => {
     try {
       setIsSubmitting(true);
-      const response = await axios.post('/api/issues', data);
 
-      if (response.status === 201) {
-        router.push('/issues');
+      if (issue) {
+        await axios.patch(`/api/issues/${issue.id}`, data);
+      } else {
+        await axios.post('/api/issues', data);
       }
+
+      router.push('/issues');
     } catch (error) {
       console.log(error);
       setIsSubmitting(false);
@@ -72,7 +75,10 @@ const IssueForm = (props: Props) => {
         )}
       />
       <ErrorMessage>{errors.description?.message}</ErrorMessage>
-      <Button>Submit New Issue {isSubmitting && <Spinner />}</Button>
+      <Button>
+        {issue ? 'Update Issue' : 'Submit New Issue'}{' '}
+        {isSubmitting && <Spinner />}
+      </Button>
     </form>
   );
 };
