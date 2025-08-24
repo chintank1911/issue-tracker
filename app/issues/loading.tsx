@@ -17,10 +17,10 @@ const LoadingIssuesPage = () => {
           <Table.Row>
             <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Create
+              Status
             </Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Status
+              Created At
             </Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
