@@ -50,6 +50,7 @@ const IssueForm = (props: Props) => {
       }
 
       router.push('/issues');
+      router.refresh();
     } catch (error) {
       console.log(error);
       setIsSubmitting(false);
