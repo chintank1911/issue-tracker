@@ -11,8 +11,7 @@ import { Button, TextField } from '@radix-ui/themes';
 import 'easymde/dist/easymde.min.css';
 
 import { createIssueSchema } from '../../validationSchemas';
-import ErrorMessage from '../../components/ErrorMessage';
-import Spinner from '../../components/Spinner';
+import { ErrorMessage, Spinner } from '@/app/components';
 
 const SimpleMDE = dynamic(() => import('react-simplemde-editor'), {
   ssr: false,

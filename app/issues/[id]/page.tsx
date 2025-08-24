@@ -5,8 +5,7 @@ import moment from 'moment';
 import ReactMarkdown from 'react-markdown';
 
 import { Card, Flex, Heading, Text } from '@radix-ui/themes';
-
-import IssueStatusBadge from '../../components/IssueStatusBadge';
+import { IssueStatusBadge } from '@/app/components';
 
 interface Props {
   params: { id: string };
