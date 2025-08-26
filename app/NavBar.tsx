@@ -2,12 +2,15 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useSession } from 'next-auth/react';
 import classNames from 'classnames';
 
 import { AiFillBug } from 'react-icons/ai';
+import { Box } from '@radix-ui/themes';
 
 const NavBar = () => {
   const currentPath = usePathname();
+  const { status, data: session } = useSession();
 
   const links = [
     {
@@ -21,11 +24,11 @@ const NavBar = () => {
   ];
 
   return (
-    <nav className="flex justify-between px-5 items-center border-b h-16">
+    <nav className="flex space-x-6 px-5 items-center border-b h-14">
       <Link href="/">
         <AiFillBug />
       </Link>
-      <ul className="flex space-x-5">
+      <ul className="flex space-x-6">
         {links.map(({ label, href }) => (
           <li key={label}>
             <Link
@@ -41,6 +44,14 @@ const NavBar = () => {
           </li>
         ))}
       </ul>
+      <Box>
+        {status === 'authenticated' && (
+          <Link href="/api/auth/signout">Log out</Link>
+        )}
+        {status === 'unauthenticated' && (
+          <Link href="/api/auth/signin">Login</Link>
+        )}
+      </Box>
     </nav>
   );
 };
