@@ -6,8 +6,7 @@ import { useSession } from 'next-auth/react';
 import classNames from 'classnames';
 
 import { AiFillBug } from 'react-icons/ai';
-import { Box, DropdownMenu, Flex, Text } from '@radix-ui/themes';
-import * as Avatar from '@radix-ui/react-avatar';
+import { Box, DropdownMenu, Flex, Text, Avatar } from '@radix-ui/themes';
 
 const NavBar = () => {
   const currentPath = usePathname();
@@ -52,23 +51,13 @@ const NavBar = () => {
           {status === 'authenticated' && (
             <DropdownMenu.Root>
               <DropdownMenu.Trigger>
-                {/* <Avatar
+                <Avatar
                   src={session.user!.image!}
                   fallback="?"
                   size="2"
                   radius="full"
                   className="cursor-pointer"
-                /> */}
-                <Avatar.Root className="AvatarRoot">
-                  <Avatar.Image
-                    className="cursor-pointer"
-                    src={session.user!.image!}
-                    alt="profile"
-                  />
-                  <Avatar.Fallback className="cursor-pointer" delayMs={600}>
-                    {session.user?.name?.[0]}
-                  </Avatar.Fallback>
-                </Avatar.Root>
+                />
               </DropdownMenu.Trigger>
               <DropdownMenu.Content>
                 <DropdownMenu.Label>
