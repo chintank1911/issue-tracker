@@ -1,5 +1,6 @@
 import React from 'react';
 import { notFound } from 'next/navigation';
+import { getServerSession } from 'next-auth';
 import prisma from '@/prisma/client';
 
 import { Box, Flex, Grid } from '@radix-ui/themes';
@@ -7,12 +8,15 @@ import { Box, Flex, Grid } from '@radix-ui/themes';
 import EditIssueButton from './EditIssueButton';
 import IssueDetails from './IssueDetails';
 import DeleteIssueButton from './DeleteIssueButton';
+import authOptions from '@/app/auth/authOptions';
 
 interface Props {
   params: { id: string };
 }
 
 const IssueDetailPage = async (props: Props) => {
+  const session = await getServerSession(authOptions);
+
   const {
     params: { id },
   } = props;
@@ -31,12 +35,14 @@ const IssueDetailPage = async (props: Props) => {
       <Box className="space-y-3 md:col-span-4">
         <IssueDetails issue={issue} />
       </Box>
-      <Box>
-        <Flex gap="4" direction="column">
-          <EditIssueButton issueId={issue.id} />
-          <DeleteIssueButton issueId={issue.id} />
-        </Flex>
-      </Box>
+      {session && (
+        <Box>
+          <Flex gap="4" direction="column">
+            <EditIssueButton issueId={issue.id} />
+            <DeleteIssueButton issueId={issue.id} />
+          </Flex>
+        </Box>
+      )}
     </Grid>
   );
 };

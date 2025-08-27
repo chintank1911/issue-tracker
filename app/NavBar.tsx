@@ -63,9 +63,7 @@ const AuthStatus = () => {
   const { status, data: session } = useSession();
   return (
     <Box>
-      {status === 'loading' && (
-        <Skeleton width="2rem" height="2rem" className="rounded-full" />
-      )}
+      {status === 'loading' && <Skeleton width="2rem" />}
       {status === 'unauthenticated' && (
         <Link className="nav-link" href="/api/auth/signin">
           Login
