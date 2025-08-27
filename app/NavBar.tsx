@@ -8,6 +8,8 @@ import classNames from 'classnames';
 import { AiFillBug } from 'react-icons/ai';
 import { Box, DropdownMenu, Flex, Text, Avatar } from '@radix-ui/themes';
 
+import { Skeleton } from '@/app/components';
+
 const NavBar = () => {
   return (
     <nav className="px-5 border-b py-3">
@@ -61,6 +63,14 @@ const AuthStatus = () => {
   const { status, data: session } = useSession();
   return (
     <Box>
+      {status === 'loading' && (
+        <Skeleton width="2rem" height="2rem" className="rounded-full" />
+      )}
+      {status === 'unauthenticated' && (
+        <Link className="nav-link" href="/api/auth/signin">
+          Login
+        </Link>
+      )}
       {status === 'authenticated' && (
         <DropdownMenu.Root>
           <DropdownMenu.Trigger>
@@ -81,11 +91,6 @@ const AuthStatus = () => {
             </DropdownMenu.Item>
           </DropdownMenu.Content>
         </DropdownMenu.Root>
-      )}
-      {status === 'unauthenticated' && (
-        <Link className="nav-link" href="/api/auth/signin">
-          Login
-        </Link>
       )}
     </Box>
   );
