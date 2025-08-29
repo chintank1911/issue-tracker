@@ -9,25 +9,17 @@ import IssueSummary from './IssueSummary';
 import LatestIssues from './LatestIssues';
 
 export default async function Home() {
-  const result = await prisma.issue.groupBy({
-    by: ['status'],
-    _count: true,
+  const open = await prisma.issue.count({ where: { status: 'OPEN' } });
+  const inProgress = await prisma.issue.count({
+    where: { status: 'IN_PROGRESS' },
   });
-
-  const { OPEN, IN_PROGRESS, CLOSED } = result.reduce((acc, row) => {
-    acc[row.status] = row._count;
-    return acc;
-  }, {} as Record<string, number>);
+  const closed = await prisma.issue.count({ where: { status: 'CLOSED' } });
 
   return (
     <Grid columns={{ initial: '1', md: '2' }} gap="5">
       <Flex direction="column" gap="5">
-        <IssueSummary
-          counts={{ open: OPEN, inProgress: IN_PROGRESS, closed: CLOSED }}
-        />
-        <IssueChart
-          counts={{ open: OPEN, inProgress: IN_PROGRESS, closed: CLOSED }}
-        />
+        <IssueSummary counts={{ open, inProgress, closed }} />
+        <IssueChart counts={{ open, inProgress, closed }} />
       </Flex>
       <LatestIssues />
     </Grid>
