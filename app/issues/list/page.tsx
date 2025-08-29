@@ -1,4 +1,5 @@
 import React from 'react';
+import { Metadata } from 'next';
 import prisma from '@/prisma/client';
 import { Status } from '@prisma/client';
 
@@ -52,5 +53,10 @@ const IssuesPage = async ({ searchParams }: Props) => {
 };
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Issue Tracker - Issue List',
+  description: 'View all project issues',
+};
 
 export default IssuesPage;
