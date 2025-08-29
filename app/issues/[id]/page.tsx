@@ -10,6 +10,7 @@ import IssueDetails from './IssueDetails';
 import DeleteIssueButton from './DeleteIssueButton';
 import authOptions from '@/app/auth/authOptions';
 import AssigneeSelect from './AssigneeSelect';
+import UpdateIssueStatusSelect from './UpdateIssueStatusSelect';
 
 interface Props {
   params: { id: string };
@@ -40,6 +41,7 @@ const IssueDetailPage = async (props: Props) => {
         <Box>
           <Flex gap="4" direction="column">
             <AssigneeSelect issue={issue} />
+            <UpdateIssueStatusSelect issue={issue} />
             <EditIssueButton issueId={issue.id} />
             <DeleteIssueButton issueId={issue.id} />
           </Flex>

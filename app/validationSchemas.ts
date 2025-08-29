@@ -21,4 +21,11 @@ export const patchIssueSchema = z.object({
     .max(255)
     .optional()
     .nullable(),
+  status: z
+    .enum(['OPEN', 'IN_PROGRESS', 'CLOSED'], {
+      errorMap: () => ({
+        message: 'Status must be one of: OPEN, IN_PROGRESS, or CLOSED',
+      }),
+    })
+    .optional(),
 });
