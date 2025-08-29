@@ -1,6 +1,7 @@
+import React from 'react';
 import prisma from '@/prisma/client';
 
-import IssueSummary from './IssueSummary';
+import IssueChart from './IssueChart';
 
 export default async function Home() {
   const result = await prisma.issue.groupBy({
@@ -14,7 +15,7 @@ export default async function Home() {
   }, {} as Record<string, number>);
 
   return (
-    <IssueSummary
+    <IssueChart
       open={counts.OPEN || 0}
       inProgress={counts.IN_PROGRESS || 0}
       closed={counts.CLOSED || 0}
