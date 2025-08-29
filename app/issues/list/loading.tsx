@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Table } from '@radix-ui/themes';
+import { Flex, Table } from '@radix-ui/themes';
 
 import IssueActions from './IssueActions';
 import { Skeleton } from '@/app/components';
@@ -9,17 +9,17 @@ const LoadingIssuesPage = () => {
   const issues = [1, 2, 3, 4, 5];
 
   return (
-    <div>
+    <Flex direction="column" gap="3">
       <IssueActions />
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className="hidden md:table-cell">
               Status
             </Table.ColumnHeaderCell>
             <Table.ColumnHeaderCell className="hidden md:table-cell">
-              Created At
+              Created
             </Table.ColumnHeaderCell>
           </Table.Row>
         </Table.Header>
@@ -42,7 +42,7 @@ const LoadingIssuesPage = () => {
           ))}
         </Table.Body>
       </Table.Root>
-    </div>
+    </Flex>
   );
 };
 
