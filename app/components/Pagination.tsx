@@ -1,4 +1,6 @@
+'use client';
 import React from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { Button, Flex, Text } from '@radix-ui/themes';
 import {
@@ -22,21 +24,46 @@ const Pagination = (props: Props) => {
     return null;
   }
 
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const changePage = (page: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('page', page.toString());
+    router.push('?' + params.toString());
+  };
+
   return (
     <Flex align="center" gap="2">
       <Text size="2">
         Page {currentPage} of {pageCount}
       </Text>
-      <Button variant="soft" disabled={currentPage === 1}>
+      <Button
+        variant="soft"
+        disabled={currentPage === 1}
+        onClick={() => changePage(1)}
+      >
         <DoubleArrowLeftIcon />
       </Button>
-      <Button variant="soft" disabled={currentPage === 1}>
+      <Button
+        variant="soft"
+        disabled={currentPage === 1}
+        onClick={() => changePage(currentPage - 1)}
+      >
         <ChevronLeftIcon />
       </Button>
-      <Button variant="soft" disabled={currentPage === pageSize}>
+      <Button
+        variant="soft"
+        disabled={currentPage === pageSize}
+        onClick={() => changePage(currentPage + 1)}
+      >
         <ChevronRightIcon />
       </Button>
-      <Button variant="soft" disabled={currentPage === pageSize}>
+      <Button
+        variant="soft"
+        disabled={currentPage === pageSize}
+        onClick={() => changePage(pageCount)}
+      >
         <DoubleArrowRightIcon />
       </Button>
     </Flex>
