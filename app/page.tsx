@@ -1,7 +1,11 @@
 import React from 'react';
 import prisma from '@/prisma/client';
 
+import { Flex, Grid } from '@radix-ui/themes';
+
 import IssueChart from './IssueChart';
+import IssueSummary from './IssueSummary';
+import LatestIssues from './LatestIssues';
 
 export default async function Home() {
   const result = await prisma.issue.groupBy({
@@ -9,16 +13,22 @@ export default async function Home() {
     _count: true,
   });
 
-  const counts = result.reduce((acc, row) => {
+  const { OPEN, IN_PROGRESS, CLOSED } = result.reduce((acc, row) => {
     acc[row.status] = row._count;
     return acc;
   }, {} as Record<string, number>);
 
   return (
-    <IssueChart
-      open={counts.OPEN || 0}
-      inProgress={counts.IN_PROGRESS || 0}
-      closed={counts.CLOSED || 0}
-    />
+    <Grid columns={{ initial: '1', md: '2' }} gap="5">
+      <Flex direction="column" gap="5">
+        <IssueSummary
+          counts={{ open: OPEN, inProgress: IN_PROGRESS, closed: CLOSED }}
+        />
+        <IssueChart
+          counts={{ open: OPEN, inProgress: IN_PROGRESS, closed: CLOSED }}
+        />
+      </Flex>
+      <LatestIssues />
+    </Grid>
   );
 }
