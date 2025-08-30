@@ -1,34 +1,112 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# 🐛 Issue Tracker
 
-First, run the development server:
+A full-stack **Issue Tracking System** built with **Next.js, Prisma, PostgreSQL, and NextAuth**.  
+This project allows teams to manage issues effectively with features like authentication, issue assignment, filtering, and analytics.
 
+---
+
+## 🚀 Demo
+Live deployment: [Issue Tracker on Vercel](https://issue-tracker-omega-one.vercel.app/)
+
+---
+
+## 🚀 Features
+
+- **User Authentication**
+  - Google login with NextAuth
+- **Dashboard**
+  - Summary of issues (by status)
+  - Latest 5 issues
+  - Bar chart visualization
+- **Issue Management**
+  - View list of all issues
+  - Filter and sort issues
+  - Create, edit, and delete issues
+- **Assignments & Status**
+  - Assign issues to users
+  - Change issue status (Open, In Progress, Closed)
+- **Modern UI**
+  - Built with React + Radix UI components
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend**: Next.js (App Router)
+- **UI**: Radix UI + TailwindCSS
+- **Database**: PostgreSQL
+- **ORM**: Prisma
+- **Auth**: NextAuth.js (Google Provider)
+- **Charts**: Recharts
+- **Hosting**: Vercel
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+git clone https://github.com/chintank1911/issue-tracker.git
+cd issue-tracker
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Setup Environment Variables
+Create a `.env` file in the root:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```env
+DATABASE_URL="your-database-url"
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret"
 
-## Learn More
+# Google Auth
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 4. Run Prisma migrations
+```bash
+npx prisma migrate dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 5. Start the app
+```bash
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 📊 Dashboard Preview
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Issues summary by status  
+- Latest 5 issues table  
+- Issues bar chart visualization  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![Dashboard](./public/screenshots/Dashboard.png)
+
+---
+
+## 📝 Issue List Preview
+
+- View all issues in a tabular format  
+- Apply filters to narrow down issues  
+- Sort issues by different fields
+
+![Issue List](./public/screenshots/IssueList.png)
+
+---
+
+## 👀 View Issue Preview  
+
+- Detailed view of a selected issue  
+- Edit issue details (title, description)  
+- Change status (e.g., Open, In Progress, Closed)  
+- Assign issue to a specific user  
+- Delete issue with confirmation modal 
+
+![View Issue](./public/screenshots/ViewIssue.png)
